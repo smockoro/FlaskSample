@@ -7,6 +7,6 @@ virtualenvをインストールした上で仮想環境上にFlaskを導入し�
 
 練習の跡
  
-*'sample.py'　Hello World!!
-*'sample2.py' リストで要素を並べる
-*'sample3.py' redirectの勉強
+ *'sample.py'　Hello World!!
+ *'sample2.py' リストで要素を並べる
+ *'sample3.py' redirectの勉強
