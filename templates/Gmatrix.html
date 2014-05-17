@@ -1,0 +1,23 @@
+<html>
+<head></head>
+<body>
+    <p>Generate Matrix</p>
+    <p>
+    {% for row in items %}
+        {% for element in row %}
+            {{element}}
+        {% endfor %}
+        </br>
+    {% endfor %}
+    </p>
+    <p>
+    {% for row in code %}
+        message{{loop.index}}: 
+        {% for element in row %}
+            {{element}}
+        {% endfor %}
+        </br>
+    {% endfor %}
+    </p>
+</body>
+</html>
