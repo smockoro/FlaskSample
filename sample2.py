@@ -1,35 +1,35 @@
 import numpy as np
 from flask import Flask, render_template
 
-def tranceF_2(list):
+def tranceF2(list):
     for i in range(len(list)):
         list[i] = list[i] % 2
     return list 
 
 class G:
-    #G is a generate matrix 
+    #G is a generator matrix 
     def __init__(self):
         self.matrix = np.array([ [1,1,0] , [0,1,1] ])
-        self.rowSize = self.matrix.shape[0]
-        self.columnSize = self.matrix.shape[1]
+        self.row_size = self.matrix.shape[0]
+        self.column_size = self.matrix.shape[1]
 
     def getMatrix(self):
         return self.matrix
     def getRowSize(self):
-        return self.rowSize
+        return self.row_size
     def getColumnSize(self):
-        return self.columnSize
+        return self.column_size
 
 class M:
     #M is a message vector
     def __init__(self):
         self.matrix = np.array([ [0,0],[0,1],[1,0],[1,1] ])
-        self.columnSize = self.matrix.shape[1]
+        self.column_size = self.matrix.shape[1]
 
     def getMessage(self):
         return self.matrix
     def getColumnSize(self):
-        return self.columnSize
+        return self.column_size
 
 def makeCode(G, M):
     code = []
@@ -37,17 +37,26 @@ def makeCode(G, M):
         return code 
     else:
         for message in M.getMessage():
-            code.append(tranceF_2( np.dot( message, G.getMatrix() ) ))
+            code.append(tranceF2( np.dot( message, G.getMatrix() ) ))
         return code
 
 class C:
     #C is a code 
     def __init__(self, G, M):
         self.code = makeCode(G, M)
-        self.codeLen = len(self.code)
+        self.code_len = len(self.code)
 
     def getCode(self):
         return self.code
+
+def hammingWeight(code):
+    weight_dist = np.zeros( len( code.getCode()[0] )+1 )
+    for code_word in code.getCode():
+        weight = np.count_nonzero(code_word)
+        weight_dist[weight] += 1
+
+    return weight_dist
+
 
 app = Flask(__name__)
 
@@ -62,7 +71,9 @@ def Gmatrix():
     m = M()
     c = C(g,m)
 
-    return render_template( "Gmatrix.html", items=g.getMatrix(), code=c.getCode() )
+    return render_template( "Gmatrix.html", items=g.getMatrix(),
+                                            code=c.getCode(),
+                                            weight_dist = hammingWeight(c) )
     
 
     

@@ -12,12 +12,13 @@
     </p>
     <p>
     {% for row in code %}
-        message{{loop.index}}: 
+        code word{{loop.index}}: 
         {% for element in row %}
             {{element}}
         {% endfor %}
         </br>
     {% endfor %}
     </p>
+    <p>{{weight_dist}}</p>
 </body>
 </html>
